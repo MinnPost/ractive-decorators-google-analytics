@@ -1,0 +1,23 @@
+{
+	"name": "ractive-decorators-ractive-decorators-google-analytics",
+	"description": "A decorator to make it easy to include custom track events for Google Analytics in Ractive.",
+	"version": "0.1.0",
+	"author": "Alan Palazzolo",
+	"main": "ractive-decorators-google-analytics.js",
+	"dependencies": {
+		"ractive": "^0.5.4"
+	},
+	"ignore": [
+		".*",
+		"*.json",
+		"demo",
+		"grunt",
+		"node_modules",
+		"bower_components",
+		"src",
+		"test",
+		"Gruntfile.js",
+		"index.html",
+		"README.md"
+	]
+}
