@@ -34,49 +34,65 @@
 	'use strict';
 
 	// Decorator handler.  Optional content parameter is not used
-	var googleAnalyticsDecorator = function(node) {
+	var googleAnalyticsDecorator = function(node, events, category, action, label, value) {
 		var i, eventHandler;
 
+		// Handle defaults
+		events = events || googleAnalyticsDecorator.events;
+		category = category || googleAnalyticsDecorator.category;
+		action = action || googleAnalyticsDecorator.action;
+		label = label || googleAnalyticsDecorator.label;
+		value = value || googleAnalyticsDecorator.value;
+
 		// Make sure events are an array
-		if (Object.prototype.toString.call(googleAnalyticsDecorator.events) !== '[object Array]') {
-			googleAnalyticsDecorator.events = [googleAnalyticsDecorator.events];
+		if (Object.prototype.toString.call(events) !== '[object Array]') {
+			events = [events];
 		}
 
 		// Handle event
 		eventHandler = function(eName) {
+			// If action is auto, then use the name of the event
+			var localAction = (action === 'auto') ? eName : action;
+
 			// Options e parameter is not used
 			return function() {
-				// If action is auto, then use the name of the event
-				if (googleAnalyticsDecorator.action === 'auto') {
-					googleAnalyticsDecorator.action = eName;
-				}
 
 				if (googleAnalyticsDecorator.isLegacy === true) {
 					_gaq.push([
 						'_trackEvent',
-						googleAnalyticsDecorator.category,
-						googleAnalyticsDecorator.action,
-						googleAnalyticsDecorator.label,
-						googleAnalyticsDecorator.value
+						category,
+						localAction,
+						label,
+						value
 					]);
 				}
 				else {
 					ga(
 						'send',
-						googleAnalyticsDecorator.category,
-						googleAnalyticsDecorator.action,
-						googleAnalyticsDecorator.label,
-						googleAnalyticsDecorator.value
+						category,
+						localAction,
+						label,
+						value
 					);
 				}
 			};
 		};
 
 		// Go through all tracked events and add listeners
-		for (i = 0; i < googleAnalyticsDecorator.events.length; i++) {
-	    node.addEventListener(googleAnalyticsDecorator.events[i],
-				eventHandler(googleAnalyticsDecorator.events[i]), false);
+		for (i = 0; i < events.length; i++) {
+	    node.addEventListener(events[i], eventHandler(events[i]), false);
 		}
+
+
+	  // Return an object with a `teardown()` method that removes the
+	  // event handlers when we no longer need them
+	  return {
+	    teardown: function() {
+				for (i = 0; i < events.length; i++) {
+					node.removeEventListener(events[i], eventHandler(events[i]), false);
+				}
+	    }
+	  };
 	};
 
 	// Default parameters

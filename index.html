@@ -1,67 +1,75 @@
 <!doctype html>
-<html lang='en-GB'>
+<html lang="en-GB">
 <head>
-	<meta charset='utf-8'>
-	<title>Ractive.js ractive-decorators-google-analytics decorator plugin</title>
+	<meta charset="utf-8">
+	<title>Ractive.js Google Analytics decorator plugin</title>
 
 	<!-- CSS -->
-	<link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
-	<link rel='stylesheet' href='demo/main.css'>
-
-	<!-- TODO add styles specific to this demo -->
-	<style type='text/css'>
-
-	</style>
+	<link rel="stylesheet" href="bower_components/minnpost-styles/dist/minnpost-styles.min.css">
+	<link rel="stylesheet" href="bower_components/google-code-prettify/bin/prettify.min.css">
+	<link rel="stylesheet" href="demo/demo.css">
 </head>
 
-<body>
+<body class="mp">
 
-	<!-- if the project is on GitHub, add a fork me button! -->
-	<!-- <a class='forkme' href='https://github.com/you/repo'>Fork me on GitHub</a> -->
+	<div class="minnpost-full-container">
+		<header>
+			<h1>Ractive.js Google Analytics decorator plugin</h1>
+			<p>Adds basic support for Google Analytics event tracking within Ractive templates.</p>
+		</header>
 
-	<header>
-		<h1>Ractive.js ractive-decorators-google-analytics decorator plugin</h1>
-		<p class='strap'>
-			<span class='download'>download: <a href='[TODO]'>ractive-decorators-ractive-decorators-google-analytics.js</a></span>
-			<span class='more-plugins'>more plugins at <a href='http://docs.ractivejs.org/latest/plugins'>docs.ractivejs.org/latest/plugins</a></span>
-		</p>
-	</header>
+		<main>
 
-	<main>
-		<p>TODO A description of the plugin goes here...</p>
+			<h3>Demo</h3>
 
-		<div id='demo' class='clearfix'></div>
+			<div id="demo-template-view"></div>
 
-		<pre id='demo-template-view' class='prettyprint lang-html'></pre>
-		<pre id='demo-code-view' class='prettyprint lang-js'></pre>
-	</main>
+		</main>
 
-	<!-- add additional info such as your homepage here, if you want -->
-	<footer>
-		<p>Copyright &copy; 2014 Alan Palazzolo. Licensed MIT</p>
-	</footer>
+		<footer class="footnote">
+			<p>Made by <a href="http://code.minnpost.com" target="_blank">MinnPost</a>.</p>
+		</footer>
+	</div>
 
-	<!-- Demo template -->
-	<script id='demo-template' type='text/ractive'>
-		<!-- TODO -->
-		<p>This is a demo of the plugin</p>
+	<!-- Templates -->
+	<script id="demo-template" type="text/ractive">
+		<div class="input">
+			<p>Interact with the items below.</p>
+			<button class="button primary" decorator="ga">click me</button>
+			<button class="button primary" decorator="ga:['mouseover','mouseout']">hover me</button>
+			<button class="button primary" decorator="ga:'dblclick','DOUBLE','double-clicked','Our demo',5">double click me</button>
+		</div>
+
+		<div class="output">
+			<p>The output below describes the data sent to Google Analytics.</p>
+			<table class="striped">
+				<thead>
+					<tr>
+						<th>Command</th><th>Category</th><th>Action</th>
+						<th>Label</th><th>Value</th><th>Other</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{{#ga}}
+						<tr>
+							<td>{{ 0 }}</td>
+							<td>{{ 1 }}</td>
+							<td>{{ 2 }}</td>
+							<td>{{ 3 }}</td>
+							<td>{{ 4 }}</td>
+							<td>{{ 5 }}</td>
+						</tr>
+					{{/ga}}
+				</tbody>
+			</table>
+		</div>
 	</script>
 
-	<!-- Dependencies -->
-	<script src='vendor/ractive/ractive-legacy.js'></script>
-	<script src='src/ractive-decorators-ractive-decorators-google-analytics.js'></script>
-
-	<!-- Demo code -->
-	<script id='demo-code'>
-		// TODO
-		ractive = new Ractive({
-			el: 'demo',
-			template: '#demo-template'
-		});
-	</script>
-
-	<!-- Insert code into the page -->
-	<script src='demo/prettify.js'></script>
-	<script src='demo/demo.js'></script>
+	<!-- Scripts -->
+	<script src="bower_components/google-code-prettify/bin/prettify.min.js"></script>
+	<script src="bower_components/ractive/ractive-legacy.js"></script>
+	<script src="src/ractive-decorators-google-analytics.js"></script>
+	<script src="demo/demo.js"></script>
 </body>
 </html>
