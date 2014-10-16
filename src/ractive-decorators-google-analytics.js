@@ -34,7 +34,7 @@
 	'use strict';
 
 	// Decorator handler.  Optional content parameter is not used
-	var googleAnalyticsDecorator = function(node, events, category, action, label, value) {
+	var googleAnalyticsDecorator = function(node, events, category, action, label, value, testLegacy) {
 		var i, eventHandler;
 
 		// Handle defaults
@@ -43,6 +43,7 @@
 		action = action || googleAnalyticsDecorator.action;
 		label = label || googleAnalyticsDecorator.label;
 		value = value || googleAnalyticsDecorator.value;
+		testLegacy = testLegacy || googleAnalyticsDecorator.testLegacy;
 
 		// Make sure events are an array
 		if (Object.prototype.toString.call(events) !== '[object Array]') {
@@ -57,7 +58,7 @@
 			// Options e parameter is not used
 			return function() {
 
-				if (googleAnalyticsDecorator.isLegacy === true) {
+				if (testLegacy()) {
 					_gaq.push([
 						'_trackEvent',
 						category,
@@ -96,7 +97,9 @@
 	};
 
 	// Default parameters
-	googleAnalyticsDecorator.isLegacy = (typeof window._gaq !== 'undefined');
+	googleAnalyticsDecorator.testLegacy = function() {
+		return (typeof window._gaq !== 'undefined');
+	}
 	googleAnalyticsDecorator.events = ['click'];
 	googleAnalyticsDecorator.category = 'RactiveEvents';
 	googleAnalyticsDecorator.action = 'auto';
