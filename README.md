@@ -19,7 +19,7 @@ Or, if you're using a module loader, require this module:
 
 ```js
 // requiring the plugin will 'activate' it - no need to use the return value
-require( 'ractive-decorators-ractive-decorators-google-analytics' );
+require('ractive-decorators-ractive-decorators-google-analytics');
 ```
 
 **plugin-specific instructions to go here...**
