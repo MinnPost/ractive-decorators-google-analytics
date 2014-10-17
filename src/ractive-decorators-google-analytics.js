@@ -34,7 +34,7 @@
 	'use strict';
 
 	// Decorator handler.  Optional content parameter is not used
-	var googleAnalyticsDecorator = function(node, events, category, action, label, value, testLegacy) {
+	var googleAnalyticsDecorator = function(node, events, category, action, label, value) {
 		var i, eventHandler;
 
 		// Handle defaults
